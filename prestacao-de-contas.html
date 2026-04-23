@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prestação de Contas — Clínica Veterinária Pública de Taubaté</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #E05A1A;
+    --orange-light: #F07A3A;
+    --orange-pale: #FDF0E8;
+    --orange-mid: #FAD9C2;
+    --gray-dark: #1E1E1C;
+    --gray-mid: #3A3A38;
+    --gray-text: #5C5C58;
+    --gray-muted: #8A8A84;
+    --gray-border: #E2E2DC;
+    --gray-bg: #F5F5F2;
+    --white: #FEFEFE;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--gray-dark);overflow-x:hidden}
+  .serif{font-family:'Playfair Display',serif}
+
+  /* TOPBAR */
+  .topbar{background:var(--gray-dark);padding:8px 2.5rem;display:flex;align-items:center;justify-content:space-between}
+  .topbar-left{display:flex;align-items:center;gap:12px;font-size:10px;color:#888884;letter-spacing:0.1em;text-transform:uppercase}
+  .topbar-sep{color:#3A3A38}
+  .topbar-right{display:flex;gap:1.5rem}
+  .topbar-right a{font-size:10px;color:#888884;text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s}
+  .topbar-right a:hover{color:var(--orange)}
+
+  /* NAV */
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:72px;background:var(--white);border-bottom:1px solid var(--gray-border);position:sticky;top:0;z-index:100}
+  .logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+  .logo-mark{width:44px;height:44px;background:var(--orange);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .logo-mark svg{width:24px;height:24px}
+  .logo-name{font-family:'Playfair Display',serif;font-size:16px;color:var(--gray-dark);font-weight:700;line-height:1.2}
+  .logo-sub{font-size:10px;color:var(--orange);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px}
+  .nav-links{display:flex;gap:2rem}
+  .nav-links a{font-size:12px;color:var(--gray-text);text-decoration:none;letter-spacing:0.04em;transition:color 0.2s}
+  .nav-links a:hover{color:var(--orange)}
+  .nav-links a.active{color:var(--orange);border-bottom:1.5px solid var(--orange);padding-bottom:2px}
+  .nav-btns{display:flex;gap:8px;align-items:center}
+  .btn-urgencia{background:transparent;color:#E05A1A;border:1.5px solid #E05A1A;font-size:11px;letter-spacing:0.06em;padding:9px 16px;border-radius:4px;cursor:pointer;display:flex;align-items:center;gap:7px;font-family:'DM Sans',sans-serif}
+  .pulse{width:6px;height:6px;border-radius:50%;background:#E05A1A;animation:pulse 1.4s infinite}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.8)}}
+  .btn-nav-cta{background:var(--orange);color:#fff;font-size:11px;letter-spacing:0.08em;padding:10px 20px;border-radius:4px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;display:inline-flex;align-items:center}
+
+  /* PAGE HEADER */
+  .page-header{background:var(--gray-dark);padding:3.5rem 2.5rem;position:relative;overflow:hidden}
+  .page-header-bg{position:absolute;inset:0;opacity:0.04}
+  .page-header-inner{position:relative;z-index:2}
+  .breadcrumb{display:flex;align-items:center;gap:6px;font-size:10px;color:#666662;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.25rem}
+  .breadcrumb a{color:#666662;text-decoration:none;transition:color 0.2s}
+  .breadcrumb a:hover{color:var(--orange)}
+  .breadcrumb span{color:var(--orange)}
+  .page-header h1{font-family:'Playfair Display',serif;font-size:36px;color:#FEFEFE;font-weight:700;margin-bottom:0.75rem}
+  .page-header h1 em{font-style:italic;color:var(--orange-light)}
+  .page-header p{font-size:13px;color:#888884;line-height:1.8;max-width:560px}
+  .page-header-meta{display:flex;gap:2rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid #2A2A28}
+  .meta-item{display:flex;align-items:center;gap:8px}
+  .meta-ico{width:28px;height:28px;background:rgba(224,90,26,0.15);border-radius:5px;display:flex;align-items:center;justify-content:center}
+  .meta-ico svg{width:12px;height:12px}
+  .meta-item span{font-size:11px;color:#888884}
+  .meta-item strong{display:block;font-size:12px;color:#C8C8C4;font-weight:500}
+
+  /* DADOS INSTITUCIONAIS */
+  .dados{padding:4rem 2.5rem;background:var(--white)}
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--gray-border)}
+  .eyebrow{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--orange);margin-bottom:6px}
+  .sec-title{font-family:'Playfair Display',serif;font-size:24px;color:var(--gray-dark)}
+  .dados-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--gray-border);border:1px solid var(--gray-border);border-radius:6px;overflow:hidden}
+  .dado-item{background:var(--white);padding:1.25rem 1.5rem;display:flex;align-items:flex-start;gap:12px;transition:background 0.18s}
+  .dado-item:hover{background:var(--orange-pale)}
+  .dado-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:6px}
+  .dado-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray-muted);margin-bottom:3px}
+  .dado-val{font-size:13px;color:var(--gray-dark);font-weight:500;line-height:1.5}
+
+  /* DOCUMENTOS POR ANO */
+  .docs{padding:4rem 2.5rem;background:var(--gray-bg)}
+  .anos-nav{display:flex;gap:8px;margin-bottom:2.5rem;flex-wrap:wrap}
+  .ano-btn{background:var(--white);border:1px solid var(--gray-border);color:var(--gray-text);font-size:12px;padding:10px 20px;border-radius:4px;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:0.04em;transition:all 0.18s}
+  .ano-btn:hover{border-color:var(--orange);color:var(--orange)}
+  .ano-btn.active{background:var(--orange);color:#fff;border-color:var(--orange)}
+  .ano-panel{display:none}
+  .ano-panel.active{display:block}
+  .docs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+  .doc-card{background:var(--white);border:1px solid var(--gray-border);border-radius:6px;padding:1.5rem;transition:border-color 0.18s,background 0.18s;cursor:pointer;text-decoration:none;display:block}
+  .doc-card:hover{border-color:var(--orange);background:var(--orange-pale)}
+  .doc-ico{width:40px;height:40px;background:var(--orange-pale);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;border:1px solid var(--orange-mid)}
+  .doc-ico svg{width:18px;height:18px}
+  .doc-card h4{font-size:13px;font-weight:500;color:var(--gray-dark);margin-bottom:5px;line-height:1.4}
+  .doc-card p{font-size:11px;color:var(--gray-muted);line-height:1.7}
+  .doc-tag{display:inline-block;margin-top:10px;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);background:var(--orange-pale);padding:3px 8px;border-radius:3px}
+  .doc-tag.pdf{color:#C0341A;background:#FDEAE5}
+  .doc-tag.xls{color:#1A6B35;background:#E5F5EC}
+
+  /* CERTIFICAÇÕES */
+  .certs{padding:4rem 2.5rem;background:var(--white)}
+  .certs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+  .cert-card{background:var(--gray-bg);border:1px solid var(--gray-border);border-radius:6px;padding:1.75rem;transition:border-color 0.18s}
+  .cert-card:hover{border-color:var(--orange)}
+  .cert-num{font-family:'Playfair Display',serif;font-size:28px;font-style:italic;color:var(--orange);margin-bottom:10px;line-height:1}
+  .cert-card h4{font-size:13px;font-weight:500;color:var(--gray-dark);margin-bottom:6px}
+  .cert-card p{font-size:12px;color:var(--gray-text);line-height:1.75}
+
+  /* RELATÓRIOS FINANCEIROS */
+  .financeiro{padding:4rem 2.5rem;background:var(--gray-dark)}
+  .financeiro .eyebrow{color:var(--orange-light)}
+  .financeiro .sec-title{color:#FEFEFE}
+  .financeiro .sec-head{border-bottom-color:#2A2A28}
+  .fin-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#2A2A28;border:1px solid #2A2A28;border-radius:6px;overflow:hidden;margin-bottom:2rem}
+  .fin-cell{background:var(--gray-dark);padding:1.5rem;text-align:center}
+  .fin-n{font-family:'Playfair Display',serif;font-size:28px;color:var(--orange-light);font-weight:700}
+  .fin-l{font-size:10px;color:#555550;letter-spacing:0.1em;text-transform:uppercase;margin-top:5px;line-height:1.5}
+  .fin-docs{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+  .fin-doc{background:#2A2A28;border-radius:6px;padding:1.5rem;display:flex;align-items:center;gap:14px;transition:background 0.18s;cursor:pointer}
+  .fin-doc:hover{background:#333330}
+  .fin-doc-ico{width:38px;height:38px;background:rgba(224,90,26,0.15);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .fin-doc-ico svg{width:16px;height:16px}
+  .fin-doc h4{font-size:12px;font-weight:500;color:#C8C8C4;margin-bottom:3px}
+  .fin-doc p{font-size:11px;color:#555550}
+  .fin-doc span{display:inline-block;margin-top:6px;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);background:rgba(224,90,26,0.12);padding:2px 8px;border-radius:3px}
+
+  /* LEGISLAÇÃO */
+  .legislacao{padding:4rem 2.5rem;background:var(--orange-pale)}
+  .leg-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
+  .leg-item{background:var(--white);border:1px solid var(--orange-mid);border-radius:6px;padding:1.5rem;display:flex;align-items:flex-start;gap:14px;transition:border-color 0.18s}
+  .leg-item:hover{border-color:var(--orange)}
+  .leg-ico{width:36px;height:36px;background:var(--orange-pale);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--orange-mid)}
+  .leg-ico svg{width:15px;height:15px}
+  .leg-item h4{font-size:13px;font-weight:500;color:var(--gray-dark);margin-bottom:4px}
+  .leg-item p{font-size:11px;color:var(--gray-text);line-height:1.75}
+  .leg-item a{display:inline-block;margin-top:8px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--orange);text-decoration:none;border-bottom:1px solid var(--orange-mid)}
+
+  /* TRANSPARÊNCIA */
+  .transparencia{padding:4rem 2.5rem;background:var(--white);border-top:1px solid var(--gray-border)}
+  .transp-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+  .transp-text h2{font-family:'Playfair Display',serif;font-size:26px;color:var(--gray-dark);margin-bottom:1rem;line-height:1.3}
+  .transp-text h2 em{font-style:italic;color:var(--orange)}
+  .transp-text p{font-size:13px;color:var(--gray-text);line-height:1.9;margin-bottom:1.5rem}
+  .transp-links{display:flex;flex-direction:column;gap:10px}
+  .transp-link{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--gray-bg);border-radius:6px;border:1px solid var(--gray-border);text-decoration:none;transition:border-color 0.18s,background 0.18s}
+  .transp-link:hover{border-color:var(--orange);background:var(--orange-pale)}
+  .transp-link-ico{width:30px;height:30px;background:var(--orange-pale);border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .transp-link-ico svg{width:13px;height:13px}
+  .transp-link span{font-size:12px;color:var(--gray-dark);font-weight:500}
+  .transp-link small{display:block;font-size:10px;color:var(--gray-muted)}
+  .transp-stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .tstat{background:var(--gray-bg);border:1px solid var(--gray-border);border-radius:6px;padding:1.5rem;text-align:center}
+  .tstat-n{font-family:'Playfair Display',serif;font-size:30px;color:var(--orange)}
+  .tstat-l{font-size:10px;color:var(--gray-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:5px;line-height:1.5}
+
+  /* CTA */
+  .cta{background:var(--orange);padding:3rem 2.5rem;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center}
+  .cta h2{font-family:'Playfair Display',serif;font-size:24px;color:#fff;margin-bottom:6px}
+  .cta p{font-size:13px;color:rgba(255,255,255,0.75);line-height:1.7}
+  .cta-btns{display:flex;gap:10px;flex-shrink:0}
+  .btn-cta-w{background:#fff;color:var(--orange);font-size:11px;letter-spacing:0.08em;padding:12px 22px;border-radius:4px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500}
+  .btn-cta-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,0.5);font-size:11px;letter-spacing:0.08em;padding:12px 22px;border-radius:4px;cursor:pointer;font-family:'DM Sans',sans-serif}
+
+  /* FOOTER */
+  .footer{background:#111110;padding:3rem 2.5rem 1.75rem}
+  .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:2rem;border-bottom:1px solid #1E1E1C;margin-bottom:1.5rem}
+  .fl{font-family:'Playfair Display',serif;font-size:18px;color:#FEFEFE;margin-bottom:8px}
+  .footer-brand p{font-size:11px;color:#444440;line-height:1.85}
+  .footer-pref{display:flex;align-items:center;gap:7px;margin-top:14px}
+  .footer-pref span{font-size:10px;color:var(--orange);letter-spacing:0.08em;text-transform:uppercase}
+  .footer-col h4{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:#333330;margin-bottom:12px}
+  .footer-col ul{list-style:none}
+  .footer-col ul li{font-size:11px;color:#555550;padding:3px 0;line-height:1.6}
+  .footer-bot{display:flex;justify-content:space-between;align-items:center}
+  .footer-bot p{font-size:10px;color:#2A2A28}
+  .footer-bot span{font-size:10px;color:var(--orange);letter-spacing:0.08em;text-transform:uppercase}
+
+  @media(max-width:768px){
+    .topbar-right,.nav-links{display:none}
+    .dados-grid,.docs-grid,.certs-grid,.fin-docs,.leg-grid,.transp-inner,.fin-grid{grid-template-columns:1fr}
+    .footer-top{grid-template-columns:1fr 1fr}
+    .cta{grid-template-columns:1fr}
+    .page-header-meta{flex-direction:column;gap:1rem}
+    .transp-stats{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><polygon points="8,1 15,6 12,15 4,15 1,6" stroke="#666662" stroke-width="1" fill="none"/><circle cx="8" cy="8" r="2" fill="#666662"/></svg>
+    <span>Prefeitura Municipal de Taubaté</span>
+    <span class="topbar-sep">|</span>
+    <span>Secretaria de Meio Ambiente e Proteção Animal</span>
+  </div>
+  <div class="topbar-right">
+    <a href="#">Portal da Prefeitura</a>
+    <a href="#">Ouvidoria</a>
+    <a href="#">Acessibilidade</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="logo" href="index.html">
+    <div class="logo-mark">
+      <svg width="24" height="24" viewBox="0 0 26 26" fill="none">
+        <circle cx="13" cy="15" r="6" stroke="#fff" stroke-width="1.5"/>
+        <circle cx="8" cy="7" r="3" stroke="rgba(255,255,255,0.6)" stroke-width="1.2"/>
+        <circle cx="18" cy="7" r="3" stroke="rgba(255,255,255,0.6)" stroke-width="1.2"/>
+        <circle cx="4" cy="15" r="2" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+        <circle cx="22" cy="15" r="2" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+        <circle cx="11" cy="14" r="1.2" fill="#fff"/>
+        <circle cx="15" cy="14" r="1.2" fill="#fff"/>
+        <path d="M11 17.5 Q13 19.5 15 17.5" stroke="#fff" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div>
+      <div class="logo-name">Clínica Veterinária Pública</div>
+      <div class="logo-sub">Taubaté · SP</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html#servicos">Serviços</a>
+    <a href="index.html#sobre">Sobre</a>
+    <a href="index.html#equipe">Equipe</a>
+    <a href="prestacao-de-contas.html" class="active">Prestação de Contas</a>
+    <a href="index.html#contato">Contato</a>
+  </div>
+  <div class="nav-btns">
+    <button class="btn-urgencia"><span class="pulse"></span>Urgência 24h</button>
+    <a href="index.html#contato" class="btn-nav-cta">Agendar atendimento</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-bg">
+    <svg width="100%" height="100%" viewBox="0 0 800 260">
+      <defs><pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="#E05A1A"/></pattern></defs>
+      <rect width="800" height="260" fill="url(#dots)"/>
+    </svg>
+  </div>
+  <div class="page-header-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Início</a>
+      <span>›</span>
+      <span>Prestação de Contas</span>
+    </div>
+    <h1 class="serif">Prestação de <em>Contas</em></h1>
+    <p>Transparência e responsabilidade na gestão dos recursos públicos destinados ao bem-estar animal em Taubaté. Todos os documentos, relatórios e certificações disponíveis para consulta.</p>
+    <div class="page-header-meta">
+      <div class="meta-item">
+        <div class="meta-ico"><svg viewBox="0 0 14 14" fill="none" stroke="#E05A1A" stroke-width="1.3" stroke-linecap="round"><rect x="1" y="2" width="12" height="10" rx="1.5"/><path d="M1 5h12M4 2v3M10 2v3"/></svg></div>
+        <div><strong>Atualizado em 2025</strong><span>Documentos do exercício corrente</span></div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-ico"><svg viewBox="0 0 14 14" fill="none" stroke="#E05A1A" stroke-width="1.3" stroke-linecap="round"><path d="M7 1l1.5 3 3.5.5-2.5 2.5.5 3.5L7 9l-3 1.5.5-3.5L2 4.5 5.5 4z"/></svg></div>
+        <div><strong>Portal da Transparência</strong><span>Prefeitura Municipal de Taubaté</span></div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-ico"><svg viewBox="0 0 14 14" fill="none" stroke="#E05A1A" stroke-width="1.3" stroke-linecap="round"><circle cx="7" cy="7" r="5.5"/><path d="M7 4v3l2 2"/></svg></div>
+        <div><strong>Histórico desde 2012</strong><span>Documentos arquivados por exercício</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DADOS INSTITUCIONAIS -->
+<section class="dados">
+  <div class="sec-head">
+    <div>
+      <div class="eyebrow">Identificação</div>
+      <h2 class="sec-title serif">Dados institucionais</h2>
+    </div>
+  </div>
+  <div class="dados-grid">
+    <div class="dado-item"><div class="dado-dot"></div><div><div class="dado-label">CNPJ</div><div class="dado-val">45.780.068/0001-03</div></div></div>
+    <div class="dado-item"><div class="dado-dot"></div><div><div class="dado-label">Denominação</div><div class="dado-val">Clínica Veterinária Pública de Taubaté</div></div></div>
+    <div class="dado-item"><div class="dado-dot"></div><div><div class="dado-label">Natureza jurídica</div><div class="dado-val">Órgão público municipal</div></div></div>
+    <div class="dado-item"><div class="dado-dot"></div><div><div class="dado-label">Secretaria responsável</div><div class="dado-val">Secretaria de Meio Ambiente e Proteção Animal</div></div></div>
+    <div class="dado-item"><div class="dado-dot"></div><div><div class="dado-label">Registro CRMV-SP</div><div class="dado-val">A confirmar com a clínica</div></div></div>
+    <div class="dado-item"><div class="dado-dot"></div><div><div class="dado-label">Endereço</div><div class="dado-val">Rua das Acácias, 450 — Jardim das Nações, Taubaté / SP</div></div></div>
+    <div class="dado-item"><div class="dado-dot"></div><div><div class="dado-label">E-mail institucional</div><div class="dado-val">clinicavet@taubate.sp.gov.br</div></div></div>
+    <div class="dado-item"><div class="dado-dot"></div><div><div class="dado-label">Fundação</div><div class="dado-val">2012 — por decreto municipal</div></div></div>
+  </div>
+</section>
+
+<!-- DOCUMENTOS POR ANO -->
+<section class="docs" id="documentos">
+  <div class="sec-head">
+    <div>
+      <div class="eyebrow">Documentação</div>
+      <h2 class="sec-title serif">Relatórios por exercício</h2>
+    </div>
+    <div style="font-size:12px;color:var(--gray-muted);max-width:240px;text-align:right;line-height:1.75">Selecione o ano para visualizar os documentos do exercício.</div>
+  </div>
+
+  <div class="anos-nav">
+    <button class="ano-btn active" onclick="showAno('2025',this)">2025</button>
+    <button class="ano-btn" onclick="showAno('2024',this)">2024</button>
+    <button class="ano-btn" onclick="showAno('2023',this)">2023</button>
+    <button class="ano-btn" onclick="showAno('2022',this)">2022</button>
+    <button class="ano-btn" onclick="showAno('2021',this)">2021</button>
+    <button class="ano-btn" onclick="showAno('2020',this)">2020</button>
+  </div>
+
+  <div id="panel-2025" class="ano-panel active">
+    <div class="docs-grid">
+      <a class="doc-card" href="#">
+        <div class="doc-ico"><svg viewBox="0 0 18 18" fill="none" stroke="#E05A1A" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="1" width="12" height="16" rx="2"/><path d="M6 6h6M6 9h6M6 12h4"/></svg></div>
+        <h4>Relatório de gestão 2025</h4>
+        <p>Resumo das atividades, metas alcançadas e indicadores de desempenho do exercício.</p>
+        <div class="doc-tag pdf">PDF</div>
+      </a>
+      <a class="doc-card" href="#">
+        <div class="doc-ico"><svg viewBox="0 0 18 18" fill="none" stroke="#E05A1A" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="1" width="12" height="16" rx="2"/><path d="M6 6h6M6 9h6M6 12h4"/></svg></div>
+        <h4>Balanço financeiro 2025</h4>
+        <p>Demonstração das receitas, despesas e resultado do exercício financeiro corrente.</p>
+        <div class="doc-tag xls">XLS</div>
+      </a>
+      <a class="doc-card" href="#">
+        <div class="doc-ico"><svg viewBox="0 0 18 18" fill="none" stroke="#E05A1A" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="1" width="12" height="16" rx="2"/><path d="M6 6h6M6 9h6M6 12h4"/></svg></div>
+        <h4>Plano de ação 2025</h4>
+        <p>Objetivos, metas e cronograma de execução das ações previstas para o ano.</p>
+        <div class="doc-tag pdf">PDF</div>
+      </a>
+      <a class="doc-card" href="#">
+        <div class="doc-ico"><svg viewBox="0 0 18 18" fill="none" stroke="#E05A1A" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="1" width="12" height="16" rx="2"/><path d="M6 6h6M6 9h6M6 12h4"/></svg></div>
+        <h4>Relatório de atendimentos</h4>
+        <p>Número de consultas, cirurgias, internações e urgências realizadas no período.</p>
+        <div class="doc-tag pdf">PDF</div>
+      </a>
+      <a class="doc-card" href="#">
+        <div class="doc-ico"><svg viewBox="0 0 18 18" fill="none" stroke="#E05A1A" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="1" width="12" height="16" rx="2"/><path d="M6 6h6M6 9h6M6 12h4"/></svg></div>
+        <h4>Folha de pagamento</h4>
+        <p>Remuneração dos servidores vinculados à clínica, conforme portal da transparência.</p>
+        <div class="doc-tag pdf">PDF</div>
+      </a>
+      <a class="doc-card" href="#">
+        <div class="doc-ico"><svg viewBox="0 0 18 18" fill="none" stroke="#E05A1A" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="1" width="12" height="16" rx="2"/><path d="M6 6h6M6 9h6M6 12h4"/></svg></div>
+        <h4>Licitações e contratos</h4>
+        <p>Processos licitatórios, contratos firmados e aquisições realizadas no exercício.</p>
+        <div class="doc-tag pdf">PDF</div>
+      </a>
+    </div>
+  </div>
+
+  <div id="panel-2024" class="ano-panel">
+    <div class="docs-grid">
+      <a class="doc-card" href="#"><div class="doc-ico"><svg viewBox="0 0 18 18" fill="none" stroke="#E05A1A" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="1" width="12" height="16" rx="2"/><path d="M6 6h6M6 9h6M6 12h4"/></svg></div><h4>Relatório de gestão 2024</h4><p>Resumo das atividades e indicadores de desempenho do exercício 2024.</p><div class="doc-tag pdf">PDF</div></a>
+      <a class="doc-card" href="#"><div class="doc-ico"><svg viewBox="0 0 18 18" fill="none" stroke="#E05A1A" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="1" width="12" height="16" rx="2"/><path d="M6 6h6M6 9h6M6 12h4"/></svg></div><h4>Balanço financeiro 2024</h4><p>Demonstração das receitas e despesas do exercício financeiro 2024.</p><div class="doc-tag xls">XLS</div></a>
+      <a class="doc-card" href="#"><div class="doc-ico"><svg viewBox="0 0 18 18" fill="none" stroke="#E05A1A" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="1" width="12" height="16" rx="2"/><path d="M6 6h6M6 9h6M6 12h4"/></svg></div><h4>Licitações e contratos 2024</h4><p>Processos licitatórios e contratos firmados em 2024.</p><div class="doc-tag pdf">PDF</div></a>
+    </div>
+  </div>
+
+  <div id="panel-2023" class="ano-panel">
+    <div class="docs-grid">
+      <a class="doc-card" href="#"><div class="doc-ico"><svg viewBox="0 0 18 18" fill="none" stroke="#E05A1A" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="1" width="12" height="16" rx="2"/><path d="M6 6h6M6 9h6M6 12h4"/></svg></div><h4>Relatório de gestão 2023</h4><p>Resumo das atividades e indicadores de desempenho do exercício 2023.</p><div class="doc-tag pdf">PDF</div></a>
+      <a class="doc-card" href="#"><div class="doc-ico"><svg viewBox="0 0 18 18" fill="none" stroke="#E05A1A" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="1" width="12" height="16" rx="2"/><path d="M6 6h6M6 9h6M6 12h4"/></svg></div><h4>Balanço financeiro 2023</h4><p>Demonstração das receitas e despesas do exercício financeiro 2023.</p><div class="doc-tag xls">XLS</div></a>
+      <a class="doc-card" href="#"><div class="doc-ico"><svg viewBox="0 0 18 18" fill="none" stroke="#E05A1A" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="1" width="12" height="16" rx="2"/><path d="M6 6h6M6 9h6M6 12h4"/></svg></div><h4>Licitações e contratos 2023</h4><p>Processos licitatórios e contratos firmados em 2023.</p><div class="doc-tag pdf">PDF</div></a>
+    </div>
+  </div>
+
+  <div id="panel-2022" class="ano-panel">
+    <div class="docs-grid">
+      <a class="doc-card" href="#"><div class="doc-ico"><svg viewBox="0 0 18 18" fill="none" stroke="#E05A1A" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="1" width="12" height="16" rx="2"/><path d="M6 6h6M6 9h6M6 12h4"/></svg></div><h4>Relatório de gestão 2022</h4><p>Resumo das atividades e indicadores de desempenho do exercício 2022.</p><div class="doc-tag pdf">PDF</div></a>
+      <a class="doc-card" href="#"><div class="doc-ico"><svg viewBox="0 0 18 18" fill="none" stroke="#E05A1A" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="1" width="12" height="16" rx="2"/><path d="M6 6h6M6 9h6M6 12h4"/></svg></div><h4>Balanço financeiro 2022</h4><p>Demonstração das receitas e despesas do exercício financeiro 2022.</p><div class="doc-tag xls">XLS</div></a>
+    </div>
+  </div>
+
+  <div id="panel-2021" class="ano-panel">
+    <div class="docs-grid">
+      <a class="doc-card" href="#"><div class="doc-ico"><svg viewBox="0 0 18 18" fill="none" stroke="#E05A1A" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="1" width="12" height="16" rx="2"/><path d="M6 6h6M6 9h6M6 12h4"/></svg></div><h4>Relatório de gestão 2021</h4><p>Resumo das atividades e indicadores de desempenho do exercício 2021.</p><div class="doc-tag pdf">PDF</div></a>
+      <a class="doc-card" href="#"><div class="doc-ico"><svg viewBox="0 0 18 18" fill="none" stroke="#E05A1A" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="1" width="12" height="16" rx="2"/><path d="M6 6h6M6 9h6M6 12h4"/></svg></div><h4>Balanço financeiro 2021</h4><p>Demonstração das receitas e despesas do exercício financeiro 2021.</p><div class="doc-tag xls">XLS</div></a>
+    </div>
+  </div>
+
+  <div id="panel-2020" class="ano-panel">
+    <div class="docs-grid">
+      <a class="doc-card" href="#"><div class="doc-ico"><svg viewBox="0 0 18 18" fill="none" stroke="#E05A1A" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="1" width="12" height="16" rx="2"/><path d="M6 6h6M6 9h6M6 12h4"/></svg></div><h4>Relatório de gestão 2020</h4><p>Resumo das atividades e indicadores de desempenho do exercício 2020.</p><div class="doc-tag pdf">PDF</div></a>
+      <a class="doc-card" href="#"><div class="doc-ico"><svg viewBox="0 0 18 18" fill="none" stroke="#E05A1A" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="1" width="12" height="16" rx="2"/><path d="M6 6h6M6 9h6M6 12h4"/></svg></div><h4>Balanço financeiro 2020</h4><p>Demonstração das receitas e despesas do exercício financeiro 2020.</p><div class="doc-tag xls">XLS</div></a>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICAÇÕES -->
+<section class="certs">
+  <div class="sec-head">
+    <div>
+      <div class="eyebrow">Certificações</div>
+      <h2 class="sec-title serif">Registros e habilitações</h2>
+    </div>
+  </div>
+  <div class="certs-grid">
+    <div class="cert-card">
+      <div class="cert-num">01</div>
+      <h4>CRMV-SP</h4>
+      <p>Registro no Conselho Regional de Medicina Veterinária do Estado de São Paulo. Todos os profissionais com registro ativo e habilitação para exercício da profissão.</p>
+    </div>
+    <div class="cert-card">
+      <div class="cert-num">02</div>
+      <h4>CFMV</h4>
+      <p>Habilitação junto ao Conselho Federal de Medicina Veterinária, assegurando o cumprimento das normas nacionais de ética e exercício profissional.</p>
+    </div>
+    <div class="cert-card">
+      <div class="cert-num">03</div>
+      <h4>Utilidade pública municipal</h4>
+      <p>Declaração de Utilidade Pública pelo Município de Taubaté, vinculada à Secretaria de Meio Ambiente e Proteção Animal.</p>
+    </div>
+    <div class="cert-card">
+      <div class="cert-num">04</div>
+      <h4>Lei de acesso à informação</h4>
+      <p>Cumprimento da Lei nº 12.527/2011 (LAI), garantindo transparência e acesso público a todas as informações da clínica.</p>
+    </div>
+    <div class="cert-card">
+      <div class="cert-num">05</div>
+      <h4>LGPD</h4>
+      <p>Adequação à Lei Geral de Proteção de Dados (Lei nº 13.709/2018) no tratamento de dados de tutores e pacientes.</p>
+    </div>
+    <div class="cert-card">
+      <div class="cert-num">06</div>
+      <h4>Vigilância sanitária</h4>
+      <p>Alvará de funcionamento emitido pela Vigilância Sanitária Municipal, com inspeções periódicas e laudos técnicos atualizados.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RELATÓRIOS FINANCEIROS -->
+<section class="financeiro">
+  <div class="sec-head">
+    <div>
+      <div class="eyebrow">Gestão de recursos</div>
+      <h2 class="sec-title serif">Indicadores financeiros 2025</h2>
+    </div>
+  </div>
+  <div class="fin-grid">
+    <div class="fin-cell"><div class="fin-n">R$ 2,4M</div><div class="fin-l">Orçamento aprovado 2025</div></div>
+    <div class="fin-cell"><div class="fin-n">R$ 1,8M</div><div class="fin-l">Executado até outubro</div></div>
+    <div class="fin-cell"><div class="fin-n">76%</div><div class="fin-l">Taxa de execução orçamentária</div></div>
+    <div class="fin-cell"><div class="fin-n">5.200</div><div class="fin-l">Atendimentos realizados</div></div>
+  </div>
+  <div class="fin-docs">
+    <div class="fin-doc">
+      <div class="fin-doc-ico"><svg viewBox="0 0 16 16" fill="none" stroke="#E05A1A" stroke-width="1.3" stroke-linecap="round"><rect x="2" y="1" width="12" height="14" rx="1.5"/><path d="M5 5h6M5 8h6M5 11h4"/></svg></div>
+      <div><h4>Demonstrativo de receitas e despesas</h4><p>Exercício 2025</p><span>PDF · Atualizado</span></div>
+    </div>
+    <div class="fin-doc">
+      <div class="fin-doc-ico"><svg viewBox="0 0 16 16" fill="none" stroke="#E05A1A" stroke-width="1.3" stroke-linecap="round"><rect x="2" y="1" width="12" height="14" rx="1.5"/><path d="M5 5h6M5 8h6M5 11h4"/></svg></div>
+      <div><h4>Nota de empenho e liquidação</h4><p>Exercício 2025</p><span>PDF · Atualizado</span></div>
+    </div>
+    <div class="fin-doc">
+      <div class="fin-doc-ico"><svg viewBox="0 0 16 16" fill="none" stroke="#E05A1A" stroke-width="1.3" stroke-linecap="round"><rect x="2" y="1" width="12" height="14" rx="1.5"/><path d="M5 5h6M5 8h6M5 11h4"/></svg></div>
+      <div><h4>Relatório de licitações</h4><p>Exercício 2025</p><span>PDF · Atualizado</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- LEGISLAÇÃO -->
+<section class="legislacao">
+  <div class="sec-head" style="border-bottom-color:var(--orange-mid)">
+    <div>
+      <div class="eyebrow">Base legal</div>
+      <h2 class="sec-title serif">Legislação aplicável</h2>
+    </div>
+  </div>
+  <div class="leg-grid">
+    <div class="leg-item">
+      <div class="leg-ico"><svg viewBox="0 0 15 15" fill="none" stroke="#E05A1A" stroke-width="1.3" stroke-linecap="round"><rect x="2" y="1" width="11" height="13" rx="1.5"/><path d="M5 5h5M5 8h5M5 11h3"/></svg></div>
+      <div>
+        <h4>Lei de acesso à informação</h4>
+        <p>Lei Federal nº 12.527/2011 — regula o acesso a informações públicas previsto na Constituição Federal.</p>
+        <a href="#">Ver legislação →</a>
+      </div>
+    </div>
+    <div class="leg-item">
+      <div class="leg-ico"><svg viewBox="0 0 15 15" fill="none" stroke="#E05A1A" stroke-width="1.3" stroke-linecap="round"><rect x="2" y="1" width="11" height="13" rx="1.5"/><path d="M5 5h5M5 8h5M5 11h3"/></svg></div>
+      <div>
+        <h4>Lei de responsabilidade fiscal</h4>
+        <p>Lei Complementar nº 101/2000 — estabelece normas de finanças públicas voltadas para responsabilidade na gestão fiscal.</p>
+        <a href="#">Ver legislação →</a>
+      </div>
+    </div>
+    <div class="leg-item">
+      <div class="leg-ico"><svg viewBox="0 0 15 15" fill="none" stroke="#E05A1A" stroke-width="1.3" stroke-linecap="round"><rect x="2" y="1" width="11" height="13" rx="1.5"/><path d="M5 5h5M5 8h5M5 11h3"/></svg></div>
+      <div>
+        <h4>Decreto municipal de criação</h4>
+        <p>Decreto Municipal de Taubaté que institui a Clínica Veterinária Pública e define suas competências.</p>
+        <a href="#">Ver decreto →</a>
+      </div>
+    </div>
+    <div class="leg-item">
+      <div class="leg-ico"><svg viewBox="0 0 15 15" fill="none" stroke="#E05A1A" stroke-width="1.3" stroke-linecap="round"><rect x="2" y="1" width="11" height="13" rx="1.5"/><path d="M5 5h5M5 8h5M5 11h3"/></svg></div>
+      <div>
+        <h4>Resolução CRMV-SP</h4>
+        <p>Normas do Conselho Regional de Medicina Veterinária de São Paulo para funcionamento de estabelecimentos veterinários.</p>
+        <a href="#">Ver resolução →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSPARÊNCIA -->
+<section class="transparencia">
+  <div class="transp-inner">
+    <div class="transp-text">
+      <div class="eyebrow">Portal da transparência</div>
+      <h2 class="serif">Acesso <em>aberto</em> à informação pública</h2>
+      <p>Todas as informações da Clínica Veterinária Pública de Taubaté estão disponíveis no Portal da Transparência da Prefeitura Municipal, conforme exigido pela Lei de Acesso à Informação.</p>
+      <div class="transp-links">
+        <a class="transp-link" href="#">
+          <div class="transp-link-ico"><svg viewBox="0 0 13 13" fill="none" stroke="#E05A1A" stroke-width="1.3" stroke-linecap="round"><path d="M7 1H3a1 1 0 00-1 1v9a1 1 0 001 1h7a1 1 0 001-1V6M7 1l4 4M7 1v4h4"/></svg></div>
+          <div><span>Portal da transparência de Taubaté</span><small>taubate.sp.gov.br/transparencia</small></div>
+        </a>
+        <a class="transp-link" href="#">
+          <div class="transp-link-ico"><svg viewBox="0 0 13 13" fill="none" stroke="#E05A1A" stroke-width="1.3" stroke-linecap="round"><path d="M7 1H3a1 1 0 00-1 1v9a1 1 0 001 1h7a1 1 0 001-1V6M7 1l4 4M7 1v4h4"/></svg></div>
+          <div><span>Câmara Municipal de Taubaté</span><small>camarataubate.sp.gov.br</small></div>
+        </a>
+        <a class="transp-link" href="#">
+          <div class="transp-link-ico"><svg viewBox="0 0 13 13" fill="none" stroke="#E05A1A" stroke-width="1.3" stroke-linecap="round"><path d="M6.5 1a5.5 5.5 0 100 11A5.5 5.5 0 006.5 1zM1 6.5h11M6.5 1a8 8 0 010 11M6.5 1a8 8 0 000 11"/></svg></div>
+          <div><span>Diário oficial do município</span><small>Publicações e atos administrativos</small></div>
+        </a>
+      </div>
+    </div>
+    <div class="transp-stats">
+      <div class="tstat"><div class="tstat-n">100%</div><div class="tstat-l">Documentos disponíveis publicamente</div></div>
+      <div class="tstat"><div class="tstat-n">13+</div><div class="tstat-l">Anos de histórico arquivado</div></div>
+      <div class="tstat"><div class="tstat-n">LAI</div><div class="tstat-l">Lei de acesso à informação cumprida</div></div>
+      <div class="tstat"><div class="tstat-n">24h</div><div class="tstat-l">Documentos acessíveis a qualquer hora</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta">
+  <div>
+    <h2 class="serif">Dúvidas sobre a prestação de contas?</h2>
+    <p>Entre em contato pela ouvidoria da Prefeitura ou diretamente com a clínica pelo e-mail institucional.</p>
+  </div>
+  <div class="cta-btns">
+    <button class="btn-cta-w">Acessar ouvidoria</button>
+    <button class="btn-cta-ghost">clinicavet@taubate.sp.gov.br</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="fl">Clínica Veterinária Pública de Taubaté</div>
+      <p>Serviço público gratuito vinculado à Secretaria<br>de Meio Ambiente e Proteção Animal.<br>Prefeitura Municipal de Taubaté.</p>
+      <div class="footer-pref">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><polygon points="8,1 15,6 12,15 4,15 1,6" stroke="#E05A1A" stroke-width="1" fill="none"/><circle cx="8" cy="8" r="2" fill="#E05A1A"/></svg>
+        <span>Prefeitura Municipal de Taubaté</span>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Serviços</h4><ul><li>Clínica geral</li><li>Cirurgia</li><li>Internação / UTI</li><li>Diagnóstico por imagem</li><li>Laboratório</li><li>Urgência 24h</li></ul></div>
+    <div class="footer-col"><h4>Institucional</h4><ul><li>Sobre a clínica</li><li>Equipe médica</li><li>Como agendar</li><li>Prestação de contas</li><li>Ouvidoria</li></ul></div>
+    <div class="footer-col"><h4>Contato</h4><ul><li>(12) 3900-0000</li><li>WhatsApp 24h</li><li>clinicavet@taubate.sp.gov.br</li><li>Seg–Sex 8h–20h</li><li>Urgência 24h/7</li></ul></div>
+  </div>
+  <div class="footer-bot">
+    <p>© 2025 Prefeitura Municipal de Taubaté · Clínica Veterinária Pública de Taubaté</p>
+    <span>CRMV-SP regulamentado</span>
+  </div>
+</footer>
+
+<script>
+  function showAno(ano, btn) {
+    document.querySelectorAll('.ano-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.ano-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('panel-' + ano).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
